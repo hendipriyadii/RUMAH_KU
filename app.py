@@ -38,12 +38,12 @@ app = Flask(__name__)
 # Secret Key / Session
 # ============================================================
 
-# WAJIB di-set sebagai environment variable APP_SECRET.
-APP_SECRET = os.getenv("APP_SECRET")
-if not APP_SECRET:
-    raise RuntimeError("APP_SECRET environment variable is not set")
+# WAJIB di-set sebagai environment variable APP_RAHASIA.
+APP_RAHASIA = os.getenv("APP_RAHASIA")
+if not APP_RAHASIA:
+    raise RuntimeError("APP_RAHASIA environment variable is not set")
 
-app.config["SECRET_KEY"] = APP_SECRET
+app.config["SECRET_KEY"] = APP_RAHASIA
 app.config["SESSION_COOKIE_HTTPONLY"] = True
 app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
 app.config["SESSION_COOKIE_SECURE"] = True
