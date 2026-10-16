@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+
+metadata:
+  name: mlops-service
+  namespace: mlops
+  labels:
+    app: mlops
+
+spec:
+  selector:
+    app: mlops
+
+  ports:
+    - name: http
+      port: 80
+      targetPort: 5000
+
+  type: ClusterIP

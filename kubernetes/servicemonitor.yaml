@@ -1,0 +1,61 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+
+metadata:
+  name: mlops-servicemonitor
+  namespace: mlops
+  labels:
+    app: mlops
+    release: monitoring
+
+spec:
+  namespaceSelector:
+    matchNames:
+      - mlops
+
+  selector:
+    matchLabels:
+      app: mlops
+
+  jobLabel: app
+
+  endpoints:
+    - port: http
+
+      path: /metrics
+
+      scheme: http
+
+      interval: 15s
+
+      scrapeTimeout: 10s
+
+      honorLabels: true
+
+      honorTimestamps: true
+
+      followRedirects: true
+
+      enableHttp2: true
+
+      relabelings:
+
+        - sourceLabels:
+            - __meta_kubernetes_namespace
+          targetLabel: kubernetes_namespace
+
+        - sourceLabels:
+            - __meta_kubernetes_pod_name
+          targetLabel: pod
+
+        - sourceLabels:
+            - __meta_kubernetes_service_name
+          targetLabel: service
+
+        - sourceLabels:
+            - __meta_kubernetes_node_name
+          targetLabel: node
+
+        - sourceLabels:
+            - __meta_kubernetes_pod_ip
+          targetLabel: pod_ip
